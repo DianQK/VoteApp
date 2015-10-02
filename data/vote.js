@@ -27,17 +27,26 @@ exports.create_vote = function (data, callback) {
             write_succeeded = true;
             final_vote = new_vote[0];
             console.log("** create_vote_success.");
-            cb(null);
-        },
+            cb(null, final_vote);
+        }],
 
 		function (err, results) {
 			if (err) {
-				callback(err);
+				if (write_succeeded)
+					db.albums.remove({ _id: data.name }, function () {});
+				if (err instanceof Error && err.code == 11000) {
+					console.log("***** vote_already_exists *****");
+					callback(backhelp.vote_already_exists());
+				}
+				else if (err instanceof Error && err.errno != undefined)
+					callback(backhelp.file_error(err));
+				else
+					callback(err);
+				return;
 			} else {
-				callback(err, err ? null : final_vote);
+				callback(err, err ? null : data);//WHY !!!!! WTF !!!//final_vote);
 			}
-		}
-		]);
+		});
 };
 
 exports.vote_by_name = function (name, callback) {
