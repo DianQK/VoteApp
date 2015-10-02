@@ -1,0 +1,14 @@
+{
+	"name" : "Vote-Demo",
+	"description" : "A Vote App.",
+	"version" : "0.0.1",
+	"private" : true,
+	"dependencies" : {
+		"express" : "4.13.x",
+		"async" : "1.4.x",
+		"mongodb" : "2.0.x",
+		"body-parser" : "1.14.x",
+		"multer" : "1.0.x",
+		"morgan" : "1.6.x"
+	}
+}

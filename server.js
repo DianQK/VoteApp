@@ -1,0 +1,43 @@
+var express = require('express');
+var bodyParser = require('body-parser');  
+var helpers = require('./handlers/helpers.js');
+var logger = require('morgan');
+
+var app = express();
+
+var db = require('./data/db.js'),
+    vote_hdlr = require('./handlers/votes.js'),
+    // page_hdlr = require('./handlers/pages.js'),
+    helpers = require('./handlers/helpers.js');
+
+app.use(logger('dev'));
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+// app.use(bodyParser({ keepExtensions: true }));
+
+// app.get('v1/votes', vote_hdlr.list_all);
+app.post('/v1/votes', vote_hdlr.create_vote);
+app.get('/v1/votes/:vote_name', vote_hdlr.vote_by_name);
+
+// app.get("/*",function (req, res) {
+// 	res.redirect("/");
+// 	res.end();
+// });
+
+app.get('*', four_oh_four);
+
+function four_oh_four(req, res) {
+    res.writeHead(404, { "Content-Type" : "application/json" });
+    res.end(JSON.stringify(helpers.invalid_resource()) + "\n");
+};
+
+db.init(function (err, results) {
+    if (err) {
+        console.error("** FATAL ERROR ON STARTUP: ");
+        console.error(err);
+        process.exit(-1);
+    }
+
+    app.listen(8080);
+});
