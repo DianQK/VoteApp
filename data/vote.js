@@ -15,7 +15,7 @@ exports.create_vote = function (data, callback) {
 		},
 
 		// create the vote in mongo
-		function function_name (vote_data, cb) {
+		function (vote_data, cb) {
 			var write = JSON.parse(JSON.stringify(vote_data));
 			console.log("write JSON: " + JSON.stringify(vote_data));
 			write._id = vote_data.name;
@@ -25,9 +25,8 @@ exports.create_vote = function (data, callback) {
 
 		function (new_vote, cb) {
             write_succeeded = true;
-            final_vote = new_vote[0];
-            console.log("** create_vote_success.");
-            cb(null, final_vote);
+            final_vote = new_vote.ops[0];
+            cb(null);
         }],
 
 		function (err, results) {
@@ -44,7 +43,7 @@ exports.create_vote = function (data, callback) {
 					callback(err);
 				return;
 			} else {
-				callback(err, err ? null : data);//WHY !!!!! WTF !!!//final_vote);
+				callback(err, err ? null : final_vote);//WHY !!!!! WTF !!!//final_vote);
 			}
 		});
 };
