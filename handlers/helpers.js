@@ -20,10 +20,10 @@ exports.error = function (code, message) {
 };
 
 exports.no_such_vote = function () {
-	return exports.error("no_such_vote", "The specified vote does not exist.");
+	return exports.error(404, "The specified vote does not exist.");
 }
 
 exports.invalid_resource = function () {
-    return exports.error("invalid_resource",
+    return exports.error(404,
                          "The requested resource does not exist.");
 };

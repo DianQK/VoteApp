@@ -10,6 +10,8 @@ exports.db_error = function () {
 }
 
 exports.vote_already_exists = function () {
-    return exports.error("vote_already_exists",
+    return exports.error(430,
                          "A vote with this name already exists.");
 };
+
+// HTTP 状态码 430 资源已存在
