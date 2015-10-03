@@ -63,10 +63,10 @@ exports.vote_by_name = function (req, res) {
     async.waterfall([
         // get the vote
         function (cb) {
-            if (!req.params || !req.params.vote_name)
+            if (!req.query || !req.query.name)
                 cb(helpers.no_such_vote());
             else
-                vote_data.vote_by_name(req.params.vote_name, cb);
+                vote_data.vote_by_name(req.query.name, cb);
         }
     ],
     function (err, results) {
@@ -80,3 +80,24 @@ exports.vote_by_name = function (req, res) {
         }
     });
 };
+
+exports.delete_vote_by_name = function (req, res) {
+    async.waterfall([
+        // get the vote
+        function (cb) {
+            if (!req.body || !req.body.name)
+                cb(helpers.no_such_vote());
+            else
+                vote_data.delete_vote_by_name(req.body.name, cb);
+        }
+    ],
+    function (err, result) {
+        if (err) {
+            helpers.send_failure(res, err);
+        } else if (result.result.n == 0) {
+            helpers.send_failure(res, helpers.no_such_vote());
+        } else {
+            helpers.send_success(res, { "success" : "delete"});
+        }
+    });
+}

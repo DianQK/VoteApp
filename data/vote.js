@@ -49,7 +49,7 @@ exports.create_vote = function (data, callback) {
 };
 
 exports.vote_by_name = function (name, callback) {
-	console.log("Start find vote name: " + name);
+	console.log("Start find vote : " + name);
 	db.votes.find({ _id: name }).toArray(function (err, results) {
 		if (err) {
 			callback(err);
@@ -68,6 +68,14 @@ exports.vote_by_name = function (name, callback) {
 		}
 	});
 };
+
+exports.delete_vote_by_name = function (name, callback) {
+	console.log("Start delete vote : " + name);
+	db.votes.remove({ _id: name},function (err, result) {
+		console.log("***** delete result :" + result);
+		callback(err, result);
+	});
+}
 
 // exports.candidates_for_vote = function (vote_name, cn, cs, callback) {
 // 	// var sort = { }

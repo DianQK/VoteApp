@@ -17,8 +17,9 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 // app.use(bodyParser({ keepExtensions: true }));
 
 // app.get('v1/votes', vote_hdlr.list_all);
-app.post('/v1/votes', vote_hdlr.create_vote);
-app.get('/v1/votes/:vote_name', vote_hdlr.vote_by_name);
+app.post('/v1/votes', vote_hdlr.create_vote); // 创建一个投票 
+app.get('/v1/votes', vote_hdlr.vote_by_name); // 通过名字查找一个投票
+app.post('/v1/del_votes', vote_hdlr.delete_vote_by_name);
 
 // app.get("/*",function (req, res) {
 // 	res.redirect("/");
