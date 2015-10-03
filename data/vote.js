@@ -12,6 +12,15 @@ exports.create_vote = function (data, callback) {
 	async.waterfall([
 		// validate data.
 		function (cb) {
+			try {
+				backhelp.verify(data,
+					[ "name", "anonymity", "candidate"]);
+				if (!backhelp.valid_candidate(data.candidate)) 
+					throw invalid_vote_candidate();
+			} catch (e) {
+				cb(e);
+				return;
+			}
 			cb(null, data);
 		},
 
@@ -96,4 +105,8 @@ exports.all_votes = function (sort_field, sotr_desc, skip, count, callback) {
 
 function invalid_vote_name() {
 	return backhelp.error("invalid_vote_name", "Vote names can have letter, #s, _ and, -");
+}
+
+function invalid_vote_candidate() {
+	return backhelp.error(400,"candidate must > 1");
 }
