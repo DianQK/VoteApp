@@ -9,6 +9,7 @@
 		"mongodb" : "2.0.x",
 		"body-parser" : "1.14.x",
 		"multer" : "1.0.x",
-		"morgan" : "1.6.x"
+		"morgan" : "1.6.x",
+		"moment" : "2.10.x"
 	}
 }

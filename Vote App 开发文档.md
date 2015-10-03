@@ -17,9 +17,20 @@ Request :
 	"anonymity" : false, //是否匿名投票
 	"desc" : "An interesting vote.", //投票说明
 	"candidate" : ["Tom","Dave"], //投票候选人 至少两名
-
+	"start_time" : "", //可选值
+	"end_time" : "", //可选值
 }
-
+Response : 
+{
+	"name" : "vote_demo", //投票名称
+	"anonymity" : false, //是否匿名投票
+	"desc" : "An interesting vote.", //投票说明
+	"candidate" : ["Tom","Dave"], //投票候选人 至少两名
+	"create_time" : "", //投票创建时间
+	"start_time" : "", //投票开始时间
+	"end_time" : "" //投票结束时间
+}
+```
 {
 	"_id" : "10000", //投票 id
 	"name" : "vote", //投票名称

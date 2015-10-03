@@ -8,13 +8,16 @@ exports.version = "0.1.0";
  * Vote Class
  */
 function Vote (vote_data) {
-    console.log("vote_data:" + vote_data);
 	this._id = vote_data.name;
 	this.name = vote_data.name;
 	this.anonymity = vote_data.anonymity;
-	// this.candidate = vote_data.candidate;
+	this.candidate = vote_data.candidate;
 	this.desc = vote_data.desc;
 	this.choosers = vote_data.choosers;
+    this.create_time = vote_data.create_time;
+    this.start_time = vote_data.start_time;
+    this.end_time = vote_data.end_time;
+
 }
 
 Vote.prototype._id = null;
@@ -23,13 +26,19 @@ Vote.prototype.anonymity = null;
 Vote.prototype.candidates = null;
 Vote.prototype.desc = null;
 Vote.prototype.choosers = null;
+Vote.prototype.create_time = null;
+Vote.prototype.start_time = null;
+Vote.prototype.end_time = null;
 
 Vote.prototype.response_obj = function () {
 	return {
 		name: this.name,
 		anonymity: this.anonymity,
 		candidate: this.candidate,
-		desc: this.desc
+		desc: this.desc,
+        create_time : this.create_time,
+        start_time : this.start_time,
+        end_time : this.end_time
 	}
 };
 

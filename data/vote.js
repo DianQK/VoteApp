@@ -1,7 +1,8 @@
 var local = require('../local.config.js'),
     db = require('./db.js'),
     async = require('async'),
-    backhelp = require("./backend_helpers.js");
+    backhelp = require("./backend_helpers.js"),
+    moment = require('moment');
 
 exports.version = "0.1.0";
 
@@ -19,6 +20,7 @@ exports.create_vote = function (data, callback) {
 			var write = JSON.parse(JSON.stringify(vote_data));
 			console.log("write JSON: " + JSON.stringify(vote_data));
 			write._id = vote_data.name;
+			write.create_time = moment().format('MMMM-Do-YYYY, hh:mm:ss');
 			console.log("write _id: " + write._id);
 			db.votes.insert(write, { w: 1, safe: true}, cb);
 		},
