@@ -40,10 +40,10 @@ exports.create_vote = function (data, callback) {
             cb(null);
         }],
 
-		function (err, results) {
+		function (err, result) {
 			if (err) {
 				if (write_succeeded)
-					db.albums.remove({ _id: data.name }, function () {});
+					db.votes.remove({ _id: data.name }, function () {});
 				if (err instanceof Error && err.code == 11000) {
 					console.log("***** vote_already_exists *****");
 					callback(backhelp.vote_already_exists());
@@ -86,12 +86,43 @@ exports.delete_vote_by_name = function (name, callback) {
 		console.log("***** delete result :" + result);
 		callback(err, result);
 	});
-}
+};
 
-// exports.candidates_for_vote = function (vote_name, cn, cs, callback) {
-// 	// var sort = { }
-// 	db.
-// }
+exports.update_vote = function (data, callback) {
+	// var final_vote;
+	// var vote_name;
+	var update_succeeded = false;
+	async.waterfall([
+		// validate data.
+		function (cb) {
+			try {
+				backhelp.verify(data,
+					[ "name", "update_data"]);
+			} catch (e) {
+				cb(e);
+				return;
+			}
+			cb(null, data);
+		},
+
+		// create the vote in mongo
+		function (vote_data, cb) {
+			var update = JSON.parse(JSON.stringify(vote_data.update_data));
+			console.log("update JSON: " + JSON.stringify(update));
+			// var _id = new db.bson_serializer.ObjectID(vote_data.name);//vote_data.name;
+			update.update_time = moment().format('MMMM-Do-YYYY, hh:mm:ss');
+			// console.log("update _id: " + _id);
+			db.votes.update( { _id: vote_data.name }, { $set: update}, { w: 1, safe: true}, cb);
+		}],
+
+		function (err, result) {
+			if (err) {
+				callback(err);
+			} else {
+				callback(err, err ? null : result);
+			}
+		});
+}
 
 exports.all_votes = function (sort_field, sotr_desc, skip, count, callback) {
 	var sort = {};

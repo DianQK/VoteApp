@@ -25,13 +25,18 @@ exports.vote_already_exists = function () {
                          "A vote with this name already exists.");
 };
 
+exports.candidate_already_exists = function () {
+    return exports.error(430, "A candidate with this name already exists in this vote");
+}
+
 exports.valid_candidate = function (fn) {
-    if (typeof fn == 'array') {
+    if (Array.isArray(fn)) {
         if (fn.length > 1) 
             return true;
         else 
             return false;
     } else {
+        console.log("************ valid_candidate false");
         return false;
     }
 };

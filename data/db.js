@@ -41,11 +41,17 @@ exports.init = function (callback) {
 
         function (votes_coll, cb) {
             exports.votes = votes_coll;
-            cb(null);
+            // cb(null);
+            db.collection("candidates", cb);
         },
+
+        function (candidates_coll, cb) {
+            exports.candidates = candidates_coll;
+            cb(null);
+        }
 
     ], callback);
 };
 
 exports.votes = null;
-
+exports.candidates = null;

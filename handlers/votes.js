@@ -110,3 +110,30 @@ exports.delete_vote_by_name = function (req, res) {
         }
     });
 }
+
+exports.update_vote_by_name = function (req, res) {
+    async.waterfall([
+        // update the vote
+        function (cb) {
+            if (!req.body || !req.body.name) {
+                // cb(helpers.)
+                return;
+            }
+            cb(null);
+        },
+
+        function (cb) {
+            console.log("\n update_vote: " + req.body.name);
+            vote_data.update_vote(req.body, cb);
+        }],
+
+        function (err, result) {
+            if (err) {
+                helpers.send_failure(res, err);
+            } else {
+                console.log("******* update result : " + result);
+                // var a = new Vote(results);
+                helpers.send_success(res, { "result" : result});
+            }
+        });
+}

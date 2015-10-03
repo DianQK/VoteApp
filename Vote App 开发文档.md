@@ -3,7 +3,7 @@
 ## HTTP 状态码
 
 * 430 资源已存在
-* 400 请求参数有误
+* 400 请求参数有误n
 
 ## API
 
@@ -32,6 +32,25 @@ Response :
 	"end_time" : "" //投票结束时间
 }
 ```
+
+### 更新投票
+```
+Method : POST
+Path : /v1/update_votes
+Request : 
+{
+	"name" : "vote_demo",
+	"update_data" : ""
+}
+Response : 
+{
+	"n" : 1,
+	"nModified" : 1,
+	"ok" : 1
+}
+```
+
+
 {
 	"_id" : "10000", //投票 id
 	"name" : "vote", //投票名称
@@ -43,7 +62,7 @@ Response :
 	"candidate" : [ //候选人
 	{
 		"name" : "Tom", //候选人名称
-		"desc" : "I am Tom.", //候选人描述
+		"descs" : "I am Tom.", //候选人描述
 		"poll" : "2", //候选人获得票数
 		"chooser" : ["122-224","21321-434"] //投票人 uuid 如果匿名投票该项为空
 
