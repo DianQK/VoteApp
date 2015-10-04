@@ -2,7 +2,8 @@ var local = require('../local.config.js'),
     db = require('./db.js'),
     async = require('async'),
     backhelp = require("./backend_helpers.js"),
-    moment = require('moment');
+    moment = require('moment'),
+    candidate = require('./candidate.js');
 
 exports.version = "0.1.0";
 
@@ -14,8 +15,8 @@ exports.create_vote = function (data, callback) {
 		function (cb) {
 			try {
 				backhelp.verify(data,
-					[ "name", "anonymity", "candidate"]);
-				if (!backhelp.valid_candidate(data.candidate)) 
+					[ "name", "anonymity", "candidates"]);
+				if (!backhelp.valid_candidate(data.candidates)) 
 					throw invalid_vote_candidate();
 			} catch (e) {
 				cb(e);
@@ -37,6 +38,14 @@ exports.create_vote = function (data, callback) {
 		function (new_vote, cb) {
             write_succeeded = true;
             final_vote = new_vote.ops[0];
+            // for (var i = 0; i < data.candidates.length; i++) {
+            // 	console.log("********* loop candidates:" + data.candidates[i]);
+            // 	candidate.create_candidate(data.name, data.candidates[i], cb);
+            // };
+            // for (candidate_name in data.candidates) {
+            // 	candidate.create_candidate(data.name, candidate_name, cb);
+            // 	console.log("***************  create_candidate   *******" + candidate_name);
+            // }
             cb(null);
         }],
 
@@ -54,7 +63,7 @@ exports.create_vote = function (data, callback) {
 					callback(err);
 				return;
 			} else {
-				callback(err, err ? null : final_vote);//WHY !!!!! WTF !!!//final_vote);
+				callback(err, err ? null : final_vote);
 			}
 		});
 };

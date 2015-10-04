@@ -8,6 +8,7 @@ var app = express();
 var db = require('./data/db.js'),
     vote_hdlr = require('./handlers/votes.js'),
     // page_hdlr = require('./handlers/pages.js'),
+    candidate_hdlr = require('./handlers/candidates.js');
     helpers = require('./handlers/helpers.js');
 
 app.use(logger('dev'));
@@ -21,9 +22,11 @@ app.post('/v1/votes', vote_hdlr.create_vote); // 创建一个投票
 app.get('/v1/votes', vote_hdlr.vote_by_name); // 通过名字查找一个投票
 app.post('/v1/delete_votes', vote_hdlr.delete_vote_by_name);
 app.post('/v1/update_votes', vote_hdlr.update_vote_by_name);
+app.post('/v1/add_candidate', candidate_hdlr.create_candidate);
 
 // 投票
-app.post('/v1/cast')
+app.post('/v1/cast', candidate_hdlr.choose_candidate); // 给某人投票
+app.get('/v1/check_cast',candidate_hdlr.candidate_by_name); // 查询某人投票结果
 
 // app.get("/*",function (req, res) {
 // 	res.redirect("/");

@@ -11,7 +11,7 @@ function Vote (vote_data) {
 	this._id = vote_data.name;
 	this.name = vote_data.name;
 	this.anonymity = vote_data.anonymity;
-	this.candidate = vote_data.candidate;
+	this.candidates = vote_data.candidates;
 	this.desc = vote_data.desc;
 	this.choosers = vote_data.choosers;
     this.create_time = vote_data.create_time;
@@ -34,7 +34,7 @@ Vote.prototype.response_obj = function () {
 	return {
 		name: this.name,
 		anonymity: this.anonymity,
-		candidate: this.candidate,
+		candidates: this.candidates,
 		desc: this.desc,
         create_time : this.create_time,
         start_time : this.start_time,
