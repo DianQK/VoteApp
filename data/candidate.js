@@ -29,6 +29,7 @@ exports.create_candidate = function (data, callback) {
 			var write  = JSON.parse("{}");
 			write._id = data.vote_id + "_" + data.name;//vote_id + "_" + candidate_name;
 			write.name = data.name; //candidate_data.name;
+			write.vote_id = data.vote_id;
 			write.poll = 0;
 			write.chooser = [];
 			console.log("write candidate _id: " + write._id);

@@ -17,6 +17,7 @@ function Candidate (candidate_data) {
     this.desc = candidate_data.desc;
     this.poll = candidate_data.poll;
     this.choosers = candidate_data.choosers;
+    this.vote_id = candidate_data.vote_id
 }
 
 Candidate.prototype._id = null;
@@ -24,13 +25,16 @@ Candidate.prototype.name = null;
 Candidate.prototype.desc = null;
 Candidate.prototype.poll = null;
 Candidate.prototype.choosers = null;
+Candidate.prototype.vote_id = null;
 
 Candidate.prototype.response_obj = function () {
     return {
         name : this.name,
         desc : this.desc,
         poll : this.poll,
-        choosers : this.choosers
+        choosers : this.choosers,
+        vote_id : this.vote_id
+
     }
 }
 

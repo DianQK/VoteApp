@@ -20,9 +20,11 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 // app.get('v1/votes', vote_hdlr.list_all);
 app.post('/v1/votes', vote_hdlr.create_vote); // 创建一个投票 
 app.get('/v1/votes', vote_hdlr.vote_by_name); // 通过名字查找一个投票
-app.post('/v1/delete_votes', vote_hdlr.delete_vote_by_name);
-app.post('/v1/update_votes', vote_hdlr.update_vote_by_name);
-app.post('/v1/add_candidate', candidate_hdlr.create_candidate);
+app.post('/v1/delete_votes', vote_hdlr.delete_vote_by_name); // 删除投票
+app.post('/v1/update_votes', vote_hdlr.update_vote_by_name); // 更新投票
+app.post('/v1/add_candidate', candidate_hdlr.create_candidate); // 添加候选人
+// app.get('/v1/check_votes', vote_hdlr.check_vote_by_name); // 查询当前投票情况
+app.get('/v1/votes/candidates', vote_hdlr.candidates_for_vote); // 查询当前投票结果
 
 // 投票
 app.post('/v1/cast', candidate_hdlr.choose_candidate); // 给某人投票

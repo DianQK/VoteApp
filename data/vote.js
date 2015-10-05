@@ -15,9 +15,9 @@ exports.create_vote = function (data, callback) {
 		function (cb) {
 			try {
 				backhelp.verify(data,
-					[ "name", "anonymity", "candidates"]);
-				if (!backhelp.valid_candidate(data.candidates)) 
-					throw invalid_vote_candidate();
+					[ "name", "anonymity"]);
+				// if (!backhelp.valid_candidate(data.candidates)) 
+				// 	throw invalid_vote_candidate();
 			} catch (e) {
 				cb(e);
 				return;
@@ -89,6 +89,14 @@ exports.vote_by_name = function (name, callback) {
 	});
 };
 
+exports.candidates_for_vote = function (vote_name, callback) {
+	var sort = { poll: -1 };
+	console.log("****** ***** ***** vote_id ****** ***:" + vote_name);
+	db.candidates.find({ vote_id: vote_name })
+	     .sort(sort)
+	     .toArray(callback);
+};
+
 exports.delete_vote_by_name = function (name, callback) {
 	console.log("Start delete vote : " + name);
 	db.votes.remove({ _id: name},function (err, result) {
@@ -132,6 +140,8 @@ exports.update_vote = function (data, callback) {
 			}
 		});
 }
+
+
 
 exports.all_votes = function (sort_field, sotr_desc, skip, count, callback) {
 	var sort = {};
