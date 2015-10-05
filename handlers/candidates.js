@@ -56,7 +56,7 @@ exports.create_candidate = function (req, res) {
                 helpers.send_failure(res, err);
             } else {
                 var a = new Candidate(result);
-                helpers.send_success(res, { candidate: a.response_obj });
+                helpers.send_success(res, { candidate: a.response_obj() });
             }
         }
         )

@@ -39,6 +39,7 @@ exports.create_candidate = function (data, callback) {
 		function (new_candidate, cb) {
 			write_succeeded = true;
 			final_candidate = new_candidate.ops[0];
+			// console.log("JSON new_candidate : " + JSON.stringify(final_candidate));
 			cb(null);
 		}],
 
